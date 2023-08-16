@@ -29,6 +29,11 @@ struct PathPara {
     bool operator< (PathPara const &obj) const {
         return phi < obj.phi;
     }
+
+    double get_att() { return att; }
+    double get_aoa() { return std::asin(phi); }
+    double get_aod() { return std::asin(psi); }
+    double get_dis() { return dis; }
 };
 
 class BeamSense {

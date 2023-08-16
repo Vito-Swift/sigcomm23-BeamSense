@@ -61,15 +61,16 @@ int main(int argc, char **argv) {
     for (int p = 0; p < NUM_PATH; p++) {
         path_output.emplace_back();
         path_output.back().push_back(p); // path_idx
-        path_output.back().push_back(beamSense.path_para[p].att);
-        path_output.back().push_back(beamSense.path_para[p].phi); // aoa
-        path_output.back().push_back(beamSense.path_para[p].psi); // aod
-        path_output.back().push_back(beamSense.path_para[p].dis); // dis
+        path_output.back().push_back(beamSense.path_para[p].get_att());
+        path_output.back().push_back(beamSense.path_para[p].get_aoa()); // aoa
+        path_output.back().push_back(beamSense.path_para[p].get_aod()); // aod
+        path_output.back().push_back(beamSense.path_para[p].get_dis()); // dis
     }
 
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / (long double)1e6;
+    std::cout << "path id" << "\t" << "att" << "\t" << "aoa" << "\t" << "aod" << "\t" << "dis" << "\n";
     for (auto &po: path_output) {
-        std::cout << po[0] << "," << po[1] << "," << po[2] << "," << po[3] << ","  << po[4] << "\n";
+        std::cout << po[0] << "\t" << po[1] << "\t" << po[2] << "\t" << po[3] << "\t"  << po[4] << "\n";
     }
 
     for (int i = 0; i < NUM_SC; i++) {
