@@ -33,3 +33,6 @@ num_sc = 234
 V = numpy.zeros((num_sc, num_tx, num_sts), dtype=complex) # here fill correct matrix 
 V.tofile('V.mat')
 ```
+
+## CBR Parsing
+See [Here](CBR_parsing/README.md)

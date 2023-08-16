@@ -1,0 +1,7 @@
+include(FindProtobuf)
+find_package(Protobuf REQUIRED)
+include_directories(${PROTOBUF_INCLUDE_DIR})
+PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER ndpreport.proto)
+execute_process(COMMAND bash -c "protoc -I=${CMAKE_SOURCE_DIR}/proto --python_out=${CMAKE_SOURCE_DIR}/example ndpreport.proto")
+add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
+target_link_libraries(proto ${PROTOBUF_LIBRARY})

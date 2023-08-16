@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package MIMO_Toolkit;
+
+import "google/protobuf/timestamp.proto";
+
+message NDPReport {
+  message Mac {
+    uint64 RA = 1;
+    uint64 TA = 2;
+    uint64 SRC = 3;
+    uint64 DST = 4;
+  }
+
+  message MIMOControl {
+    uint32 nc = 1;
+    uint32 nr = 2;
+    uint32 ng = 3;
+  }
+
+  message compl {
+    double real = 1;
+    double imag = 2;
+  }
+
+  message V {
+    repeated compl content = 1;
+    uint64 row_num = 2;
+    uint64 col_num = 3;
+  }
+
+  google.protobuf.Timestamp timestamp = 1;
+  repeated double ASNR = 2;
+  repeated V steering_matrices = 3;
+  Mac mac = 4;
+  MIMOControl mimocontrol = 5;
+}
