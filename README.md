@@ -5,14 +5,14 @@ Simulation, multi-path estimation, and CBR parsing code of SIGCOMM2023 BeamSense
 ### Installation
 ```
 git clone https://github.com/Vito-Swift/sigcomm23-BeamSense.git
-cd sigcomm23-BeamSense
+cd sigcomm23-BeamSense/multipath_estimation
 mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make -j4
 ```
 
 ### Run Example
-Go to `sigcomm23-BeamSense/build` directory
+Go to `sigcomm23-BeamSense/multipath_estimation/build` directory
 
 ```
 ./example ../dataset/V.mat \
