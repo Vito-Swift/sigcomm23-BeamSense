@@ -6,6 +6,8 @@
 #include <string>
 #include <fstream>
 #include <chrono>
+#include <iomanip>
+#include <cstring>
 #include "DataReader.h"
 #include "BeamSense.h"
 
@@ -22,6 +24,8 @@ int main(int argc, char **argv) {
     int NUM_SC = std::stoi(argv[6]);
     int NUM_TX = std::stoi(argv[7]);
     int NUM_RX = std::stoi(argv[8]);
+    double C_FREQ = std::stod(argv[9]);
+    double ANT_SPACING = std::stod(argv[10]);
     int NUM_STS = std::min(NUM_TX, NUM_RX);
 
     // read data from file
@@ -52,7 +56,7 @@ int main(int argc, char **argv) {
     std::vector<std::vector<double>> path_output;
     BeamSense beamSense((std::complex<double> ***) UH,
                         (std::complex<double> ***) V,
-                        S, sc_idx, NUM_PATH, NUM_SC, NUM_TX, NUM_RX);
+                        S, sc_idx, NUM_PATH, NUM_SC, NUM_TX, NUM_RX, C_FREQ, ANT_SPACING);
 
     auto start = std::chrono::system_clock::now();
     beamSense.iter_search();
@@ -68,9 +72,9 @@ int main(int argc, char **argv) {
     }
 
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / (long double)1e6;
-    std::cout << "path id" << "\t" << "att" << "\t" << "aoa" << "\t" << "aod" << "\t" << "dis" << "\n";
+    std::cout << "path" << "\t\t" << "att" << "\t\t" << "aoa" << "\t\t" << "aod" << "\t\t" << "dis" << "\n";
     for (auto &po: path_output) {
-        std::cout << po[0] << "\t" << po[1] << "\t" << po[2] << "\t" << po[3] << "\t"  << po[4] << "\n";
+        std::cout << std::setprecision(3) << po[0] << "\t\t" << po[1] << "\t\t" << po[2] << "\t\t" << po[3] << "\t\t" << po[4] << "\n";
     }
 
     for (int i = 0; i < NUM_SC; i++) {

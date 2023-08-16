@@ -12,9 +12,15 @@ make -j4
 ```
 
 ### Run Example
-Back to `sigcomm23-BeamSense` directory
+Go to `sigcomm23-BeamSense/build` directory
 
-`./build/example dataset/V.mat dataset/S.mat dataset/UH.mat 5 234 3 3`
+```
+./example ../dataset/V.mat \
+                ../dataset/S.mat \
+                ../dataset/UH.mat \
+                ../dataset/sc_idx.mat \
+                5 122 3 3 5.18e9 0.027
+```
 
 ### Data Format
 We suggest to use `numpy` to generate each matrix.

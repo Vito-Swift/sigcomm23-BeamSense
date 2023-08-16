@@ -11,6 +11,9 @@
 #include <chrono>
 #include <cstring>
 
+#define C 2.99792458e8
+const double SC_WIDTH = 312.5e3;
+
 BeamSense::BeamSense(std::complex<double> ***UH,
                      std::complex<double> ***V,
                      double *avgS,
@@ -18,7 +21,9 @@ BeamSense::BeamSense(std::complex<double> ***UH,
                      int NUM_PATH,
                      int NUM_SC,
                      int NUM_TX,
-                     int NUM_RX) : BeamSense() {
+                     int NUM_RX,
+                     double C_FREQ,
+                     double ANT_SPACING) {
     this->NUM_SC = NUM_SC;
     this->NUM_TX = NUM_TX;
     this->NUM_RX = NUM_RX;
@@ -27,11 +32,9 @@ BeamSense::BeamSense(std::complex<double> ***UH,
     this->V = V;
     this->avgS = avgS;
     this->sc_idx = sc_idx;
+    this->C_FREQ = C_FREQ;
+    this->ANT_SPACING = ANT_SPACING;
     this->path_para = (PathPara *) malloc(NUM_PATH * sizeof(PathPara));
-    if (NUM_SC == 56) {
-        C_FREQ = 2.462e9;
-        ANT_SPACING = 0.054;
-    }
 
 /*  search space    */
     num_path = NUM_PATH;
@@ -50,7 +53,6 @@ BeamSense::BeamSense(std::complex<double> ***UH,
 /*  search space    */
 
     /*  initialization method   */
-    is_random_ini = true;
     num_ini = 1;
 
     ini_path_para = (PathPara *) malloc(num_ini * sizeof(PathPara));

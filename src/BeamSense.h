@@ -9,8 +9,6 @@
 #include <vector>
 #include <random>
 
-#include "conf.h"
-
 struct PathPara {
     double phi;
     double psi;
@@ -38,8 +36,6 @@ struct PathPara {
 
 class BeamSense {
 public:
-    BeamSense() = default;
-
     BeamSense(std::complex<double> ***UH,
               std::complex<double> ***V,
               double *avgS,
@@ -47,7 +43,9 @@ public:
               int NUM_PATH,
               int NUM_SC,
               int NUM_TX,
-              int NUM_RX);
+              int NUM_RX,
+              double C_FREQ,
+              double ANT_SPACING);
 
     ~BeamSense();
 
@@ -90,16 +88,15 @@ public:
 
     int num_ini = 1; // number of initialization candidate for each path
     PathPara *ini_path_para;
-    bool is_random_ini;
     std::random_device rd;
     std::uniform_int_distribution<int> ang_dist;
     std::uniform_int_distribution<int> att_dist;
     std::uniform_int_distribution<int> dis_dist;
 
-    int NUM_SC = 234;
-    double C_FREQ = 5.18e9;
-    double ANT_SPACING = 0.027;
-    int NUM_STS = 2;
+    int NUM_SC;
+    double C_FREQ;
+    double ANT_SPACING;
+    int NUM_STS;
     int NUM_TX;
     int NUM_RX;
     int step=10;
